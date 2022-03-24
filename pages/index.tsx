@@ -15,7 +15,7 @@ const Home: NextPage<Props> = ({ posts }) => {
   return (
     <div className="dark:bg-gray-900">
       <Head>
-        <title>Create Next App</title>
+        <title>Beck Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
