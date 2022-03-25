@@ -1,10 +1,12 @@
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { SunIcon, MoonIcon } from '@heroicons/react/solid'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 function Header() {
   const { theme, setTheme } = useTheme()
-
+  useEffect(() => {
+    if (theme == null) setTheme('light')
+  }, [])
   return (
     <header className="fixed z-50 mx-auto flex w-full justify-between bg-white p-5 dark:bg-gray-800">
       <div className="flex items-center space-x-5">
