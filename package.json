@@ -8,7 +8,10 @@
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.2",
     "@heroicons/react": "^1.0.6",
+    "@portabletext/react": "^1.0.4",
+    "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^1.0.1",
+    "@types/react-syntax-highlighter": "^13.5.2",
     "next": "latest",
     "next-sanity": "^0.5.1",
     "next-themes": "^0.1.1",

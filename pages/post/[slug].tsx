@@ -1,11 +1,13 @@
+import React from 'react'
 import { GetStaticProps } from 'next'
 import Header from '../../components/Header'
 import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typings'
-import PortableText from 'react-portable-text'
+//import PortableText from 'react-portable-text'
 import { useForm, SubmitHandler } from 'react-hook-form'
+const BlockContent = require('@sanity/block-content-to-react')
+import SyntaxHighlighter from 'react-syntax-highlighter'
 import { useState } from 'react'
-
 interface IFormInput {
   _id: string
   name: string
@@ -39,6 +41,35 @@ function Post({ post }: Props) {
         setSubmitted(false)
       })
   }
+  const serializers = {
+    types: {
+      block: (props: any) => {
+        const { style = 'normal' } = props.node
+
+        if (style === 'h1') {
+          return <h1 className="my-5 text-2xl font-bold" {...props} />
+        }
+
+        if (style === 'h2') {
+          return <h1 className="my-5 text-xl font-bold" {...props} />
+        }
+
+        if (style === 'blockquote') {
+          return <blockquote>- {props.children}</blockquote>
+        }
+
+        // Fall back to default handling
+        return BlockContent.defaultSerializers.types.block(props)
+      },
+      code: (props: any) => (
+        <div className="my-2">
+          <SyntaxHighlighter language={props.node.language}>
+            {props.node.code}
+          </SyntaxHighlighter>
+        </div>
+      ),
+    },
+  }
   return (
     <main className="dark:bg-gray-900">
       <Header />
@@ -68,27 +99,11 @@ function Post({ post }: Props) {
         </div>
 
         <div className="mt-10">
-          <PortableText
-            className=""
-            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
+          <BlockContent
+            blocks={post.body}
             projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
-            content={post.body}
-            serializers={{
-              h1: (props: any) => (
-                <h1 className="my-5 text-2xl font-bold" {...props} />
-              ),
-              h2: (props: any) => (
-                <h1 className="my-5 text-xl font-bold" {...props} />
-              ),
-              li: ({ children }: any) => (
-                <li className="ml-4 list-disc">{children}</li>
-              ),
-              link: ({ href, children }: any) => (
-                <a href={href} className="text-blue-500 hover:underline">
-                  {children}
-                </a>
-              ),
-            }}
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
+            serializers={serializers}
           />
         </div>
       </article>
