@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ['static.vecteezy.com', 'links.papareact.com'],
+    domains: ['static.vecteezy.com'],
   },
 }

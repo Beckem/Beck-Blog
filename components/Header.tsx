@@ -11,11 +11,10 @@ function Header() {
     <header className="fixed z-50 mx-auto flex w-full justify-between bg-white p-5 dark:bg-gray-800">
       <div className="flex items-center space-x-5">
         <div className="hidden items-center space-x-5 md:inline-flex">
-          <h3>About Me</h3>
+          <Link passHref href="https://www.beckem.dev/">
+            <a href="#">About Me</a>
+          </Link>
           <h3>Contact</h3>
-          <h3 className="rounded-full bg-green-600 px-4 py-1 text-white">
-            Follow
-          </h3>
 
           <div
             className="relative flex h-[26px] w-[50px] scale-125 cursor-pointer items-center justify-between rounded-full bg-[#111] p-[5px]"
