@@ -3,15 +3,22 @@ import { useTheme } from 'next-themes'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect } from 'react'
 import Header from '../components/Header'
 import { sanityClient, urlFor } from '../sanity'
 import { Post } from '../typings'
-
+import DayBg from '../images/day.png'
+import NightBg from '../images/night2.png'
 interface Props {
   posts: [Post]
 }
 
 const Home: NextPage<Props> = ({ posts }) => {
+  const { theme, setTheme } = useTheme()
+  useEffect(() => {
+    if (theme == null) setTheme('light')
+  }, [])
+
   return (
     <div className="dark:bg-gray-900">
       <Head>
@@ -27,13 +34,13 @@ const Home: NextPage<Props> = ({ posts }) => {
             width="100vw"
             height="40vh"
             className=""
-            src="https://static.vecteezy.com/system/resources/previews/001/105/389/large_2x/wireframe-landscape-banner-design-vector.jpg"
+            src={theme === 'light' ? DayBg : NightBg}
           />
         </div>
 
         <div
           className="absolute bottom-1/2 left-1/2 z-10 -translate-x-1/2  text-2xl font-bold leading-10
-        text-white shadow-lg"
+        text-white drop-shadow-xl"
         >
           I never dreamed about success. I worked for it
         </div>
