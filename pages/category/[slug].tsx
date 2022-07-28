@@ -1,51 +1,31 @@
-import type { NextPage } from 'next'
-import { useTheme } from 'next-themes'
+import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
-import Header from '../components/Header'
-import { sanityClient, urlFor } from '../sanity'
-import { Post } from '../typings'
-import DayBg from '../images/day.png'
-import NightBg from '../images/night2.png'
+import { useRouter } from 'next/router'
+import Header from '../../components/Header'
+import { sanityClient, urlFor } from '../../sanity'
+import { Post } from '../../typings'
+
 interface Props {
   posts: [Post]
 }
 
-const Home: NextPage<Props> = ({ posts }) => {
-  const { theme, setTheme } = useTheme()
-  useEffect(() => {
-    if (theme == null) setTheme('light')
-  }, [])
+const Category: NextPage<Props> = ({ posts }) => {
+  const router = useRouter()
+  const { slug } = router.query
 
   return (
     <div className="overflow-hidden dark:bg-gray-900">
       <Head>
-        <title>Beck Blog</title>
+        <title>{slug}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Header />
-      <div className="relative">
-        <div className="h-[40vh] w-screen md:h-[80vh]">
-          <Image
-            layout="fill"
-            src={theme === 'light' ? DayBg : NightBg}
-            loading="eager"
-            alt="banner"
-          />
-        </div>
 
-        <div
-          className="text-shadow absolute top-1/2 left-1/2 z-10  -translate-x-1/2 -translate-y-1/2 text-lg font-bold leading-10
-        text-white md:text-3xl"
-        >
-          I never dreamed about success. I worked for it
-        </div>
-      </div>
-
-      <h1 className="text- p-2 text-2xl font-semibold md:p-6">Latest Posts</h1>
+      <h1 className="text- mt-4 p-2 text-2xl font-semibold capitalize md:p-6">
+        {slug} Posts
+      </h1>
       <div className="grid grid-cols-1 gap-3 p-2 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-3">
         {posts.map((post) => (
           <Link key={post._id} href={`/post/${post.slug.current}`}>
@@ -77,13 +57,38 @@ const Home: NextPage<Props> = ({ posts }) => {
   )
 }
 
-export default Home
+export default Category
 
-export const getServerSideProps = async () => {
-  const query = `*[_type == "post"] | order(_createdAt desc){
+// export const getStaticPaths = async () => {
+//   const query = `*[_type == "post"]{
+//       _id,
+//       slug{
+//         current
+//       }
+//     }`
+
+//   const posts = await sanityClient.fetch(query)
+
+//   const paths = posts.map((post: Post) => ({
+//     params: {
+//       slug: post.slug.current,
+//     },
+//   }))
+
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   }
+// }
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const query = `*[_type == "post" && $slug in categories[]->title] | order(_createAt desc)  {
     _id,
     title,
     slug,
+    categories[] -> {
+        title,
+    },
     author -> {
     name,
     image
@@ -93,7 +98,7 @@ export const getServerSideProps = async () => {
     slug
   }`
 
-  const posts = await sanityClient.fetch(query)
+  const posts = await sanityClient.fetch(query, { slug: params?.slug })
 
   return {
     props: {
