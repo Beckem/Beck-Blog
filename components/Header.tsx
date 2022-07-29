@@ -46,6 +46,9 @@ function Header() {
                   <ChevronDownIcon className=" h-6 w-6" />
                 </a>
 
+                {/* bridge when hover */}
+                <div className="absolute h-6 w-full bg-transparent"></div>
+
                 <div className="dropdown z-50">
                   <a href="/category/frontend" className="drop-item">
                     Frontend
