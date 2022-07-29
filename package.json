@@ -12,7 +12,7 @@
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^1.0.1",
     "@types/react-syntax-highlighter": "^13.5.2",
-    "next": "latest",
+    "next": "^12.2.3",
     "next-sanity": "^0.5.1",
     "next-themes": "^0.1.1",
     "react": "^17.0.2",
