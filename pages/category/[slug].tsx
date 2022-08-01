@@ -15,7 +15,7 @@ const Category: NextPage<Props> = ({ posts }) => {
   const { slug } = router.query
 
   return (
-    <div className="overflow-hidden dark:bg-gray-900">
+    <div className="min-h-screen overflow-hidden dark:bg-gray-900">
       <Head>
         <title>{slug}</title>
         <link rel="icon" href="/favicon.ico" />

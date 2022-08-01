@@ -32,7 +32,6 @@ const Home: NextPage<Props> = ({ posts }) => {
           <Image
             layout="fill"
             src={theme === 'light' ? DayBg : NightBg}
-            loading="eager"
             alt="banner"
           />
         </div>
