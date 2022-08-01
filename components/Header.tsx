@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 function Header() {
   const { theme, setTheme } = useTheme()
   const [isOpenMenu, setIsOpenMenu] = useState(false)
+  const [isOpenSearch, setIsOpenSearch] = useState(false)
   useEffect(() => {
     if (theme == null) setTheme('light')
   }, [])
@@ -82,10 +83,27 @@ function Header() {
               <li className="hidden md:block">
                 <div className=" m-0 h-[40px] w-[2px] bg-white"></div>
               </li>
-              <li>
-                <SearchIcon className="h-[40px] w-[40px]" />
+
+              <li
+                className="cursor-pointer"
+                onClick={() => setIsOpenSearch(!isOpenSearch)}
+              >
+                <SearchIcon className="h-10 w-10" />
               </li>
             </ul>
+
+            {isOpenSearch && (
+              <div className="">
+                <input
+                  type="text"
+                  placeholder="Enter post's name"
+                  className="absolute mt-1 w-full rounded-full px-5 py-2 shadow-md outline-none"
+                />
+                <div className="right absolute -bottom-[42px] right-1 cursor-pointer rounded-full bg-red-400 p-2 hover:bg-red-500">
+                  <SearchIcon className=" h-5 w-5 " />
+                </div>
+              </div>
+            )}
           </nav>
         </div>
       </div>
