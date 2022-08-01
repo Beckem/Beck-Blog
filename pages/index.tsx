@@ -9,6 +9,7 @@ import { sanityClient, urlFor } from '../sanity'
 import { Post } from '../typings'
 import DayBg from '../images/day.png'
 import NightBg from '../images/night2.png'
+import PostCard from '../components/PostCard'
 interface Props {
   posts: [Post]
 }
@@ -24,6 +25,7 @@ const Home: NextPage<Props> = ({ posts }) => {
       <Head>
         <title>Beck Blog</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Blog from Beck author" />
       </Head>
 
       <Header />
@@ -32,6 +34,7 @@ const Home: NextPage<Props> = ({ posts }) => {
           <Image
             layout="fill"
             src={theme === 'light' ? DayBg : NightBg}
+            objectFit="cover"
             alt="banner"
           />
         </div>
@@ -47,29 +50,7 @@ const Home: NextPage<Props> = ({ posts }) => {
       <h1 className="text- p-2 text-2xl font-semibold md:p-6">Latest Posts</h1>
       <div className="grid grid-cols-1 gap-3 p-2 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-3">
         {posts.map((post) => (
-          <Link key={post._id} href={`/post/${post.slug.current}`}>
-            <div className="group cursor-pointer overflow-hidden rounded-lg border shadow-md">
-              <img
-                className="h-60 w-full object-cover transition-transform duration-200 ease-in-out group-hover:scale-105"
-                src={urlFor(post.mainImage).url()!}
-                alt=""
-              />
-              <div className="flex justify-between bg-white p-5 dark:bg-zinc-900">
-                <div>
-                  <p className="text-lg font-bold">{post.title}</p>
-                  <p className="text-xs">
-                    {post.description} by {post.author.name}
-                  </p>
-                </div>
-
-                <img
-                  className="h-12 w-12 rounded-full"
-                  src={urlFor(post.author.image).url()!}
-                  alt=""
-                />
-              </div>
-            </div>
-          </Link>
+          <PostCard post={post} />
         ))}
       </div>
     </div>

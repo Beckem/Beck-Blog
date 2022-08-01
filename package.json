@@ -8,6 +8,7 @@
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.2",
     "@heroicons/react": "^1.0.6",
+    "@next/bundle-analyzer": "^12.2.3",
     "@portabletext/react": "^1.0.4",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^1.0.1",
