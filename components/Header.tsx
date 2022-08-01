@@ -19,7 +19,7 @@ function Header() {
     <>
       <div className="fixed top-12 z-50 mx-auto w-full  md:top-16">
         <button
-          className="fixed top-1 left-1 z-50 block border border-[#ff4040] shadow-lg md:hidden"
+          className="fixed top-1 left-1 z-50 block rounded-md border-2 border-[#ff4040] shadow-md shadow-yellow-300 md:hidden"
           onClick={() => setIsOpenMenu(!isOpenMenu)}
         >
           <MenuIcon className="h-10 w-10 text-[#ff5959]" />

@@ -8,6 +8,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 const BlockContent = require('@sanity/block-content-to-react')
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { useState } from 'react'
+import Image from 'next/image'
 interface IFormInput {
   _id: string
   name: string
@@ -72,11 +73,14 @@ function Post({ post }: Props) {
   return (
     <main className="dark:bg-gray-900">
       <Header />
-      <img
-        className="h-40 w-full object-cover"
-        src={urlFor(post.mainImage).url()!}
-        alt=""
-      />
+      <div className="relative h-60 w-screen">
+        <Image
+          layout="fill"
+          objectFit="cover"
+          src={urlFor(post.mainImage).url()!}
+          alt=""
+        />
+      </div>
 
       <article className="mx-auto max-w-3xl p-5">
         <h1 className="mt-10 mb-3 text-3xl">{post.title}</h1>
@@ -85,8 +89,10 @@ function Post({ post }: Props) {
         </h2>
 
         <div className="flex items-center space-x-2">
-          <img
-            className="h-10 w-10 rounded-full "
+          <Image
+            className="rounded-full"
+            width={40}
+            height={40}
             src={urlFor(post.author.image).url()!}
             alt=""
           />
