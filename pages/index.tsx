@@ -2,10 +2,9 @@ import type { NextPage } from 'next'
 import { useTheme } from 'next-themes'
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect } from 'react'
 import Header from '../components/Header'
-import { sanityClient, urlFor } from '../sanity'
+import { sanityClient } from '../sanity'
 import { Post } from '../typings'
 import DayBg from '../images/day.png'
 import NightBg from '../images/night2.png'
@@ -29,7 +28,7 @@ const Home: NextPage<Props> = ({ posts }) => {
       </Head>
 
       <Header />
-      <div className="relative">
+      <div className="noselect relative">
         <div className="h-[40vh] w-screen md:h-[80vh]">
           <Image
             layout="fill"
@@ -50,7 +49,7 @@ const Home: NextPage<Props> = ({ posts }) => {
       <h1 className="text- p-2 text-2xl font-semibold md:p-6">Latest Posts</h1>
       <div className="grid grid-cols-1 gap-3 p-2 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-3">
         {posts.map((post) => (
-          <PostCard post={post} />
+          <PostCard post={post} key={post._id} />
         ))}
       </div>
     </div>

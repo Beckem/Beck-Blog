@@ -1,11 +1,9 @@
 import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Header from '../../components/Header'
 import PostCard from '../../components/PostCard'
-import { sanityClient, urlFor } from '../../sanity'
+import { sanityClient } from '../../sanity'
 import { Post } from '../../typings'
 
 interface Props {
@@ -21,6 +19,7 @@ const Category: NextPage<Props> = ({ posts }) => {
       <Head>
         <title>{slug}</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content={slug?.toString()} />
       </Head>
 
       <Header />
@@ -30,7 +29,7 @@ const Category: NextPage<Props> = ({ posts }) => {
       </h1>
       <div className="grid grid-cols-1 gap-3 p-2 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-3">
         {posts.map((post) => (
-          <PostCard post={post} />
+          <PostCard post={post} key={post._id} />
         ))}
       </div>
     </div>
