@@ -4,7 +4,7 @@ import { urlFor } from '../sanity'
 
 function PostCard({ post }: any) {
   return (
-    <Link key={post._id} href={`/post/${post.slug.current}`}>
+    <Link  href={`/post/${post.slug.current}`}>
       <div className="group cursor-pointer overflow-hidden rounded-lg shadow-md shadow-red-300">
         <div className="relative h-60 w-full">
           <Image

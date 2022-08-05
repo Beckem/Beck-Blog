@@ -9,6 +9,7 @@ const BlockContent = require('@sanity/block-content-to-react')
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { useState } from 'react'
 import Image from 'next/image'
+import Head from 'next/head'
 interface IFormInput {
   _id: string
   name: string
@@ -72,6 +73,11 @@ function Post({ post }: Props) {
   }
   return (
     <main className="dark:bg-gray-900">
+      <Head>
+        <title>Beck Blog</title>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content={post.title} />
+      </Head>
       <Header />
       <div className="relative h-60 w-screen">
         <Image
