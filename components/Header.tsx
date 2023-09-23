@@ -30,7 +30,7 @@ function Header() {
           } md:block`}
         >
           <nav className="navbar">
-            <ul className="nav-list flex list-none flex-col items-center gap-8 rounded-[40px] rounded-br-none rounded-tl-none px-6 py-4 md:flex-row">
+            <ul className="nav-list flex list-none flex-col items-center gap-6 rounded-[40px] rounded-br-none rounded-tl-none px-6 py-4 md:flex-row">
               <li>
                 <a href="/" className="nav-link">
                   Home
